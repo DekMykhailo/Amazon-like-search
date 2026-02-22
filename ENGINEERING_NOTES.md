@@ -19,12 +19,3 @@ Non-trivial edge case / technical decision
   - on the DB side: WHERE (:hasFilter = false OR col IN (:ids))
   - on the service side: pass a hasFilter boolean and either the ids list or a safe placeholder.
 This ensures that an empty selection behaves like "no filter" (returns all) while a populated list applies the filter. It avoids dynamic SQL string building and prevents syntax errors.
-
-Other concise notes
-- URL state: all search state (q, brands, categories, page) is encoded in query parameters so results are shareable/bookmarkable.
-- UX limits: facet lists are capped (top N by count) to avoid overwhelming the UI when category/brand cardinality is very large.
-
-Requirements coverage
-- Search: partial matches via ILIKE, paginated results implemented.
-- Facets: Brand and Category multi-select implemented; counts update based on active filters.
-- URL State: search and filters reflected in the URL.
