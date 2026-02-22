@@ -19,7 +19,7 @@ public class ProductSpecification {
         if (query == null || query.isBlank()) {
             return null;
         }
-        return (root, _, cb) -> cb.like(cb.lower(root.get("name")), "%" + query.toLowerCase() + "%");
+        return (root, queryObj, cb) -> cb.like(cb.lower(root.get("name")), "%" + query.toLowerCase() + "%");
     }
 
     /**
@@ -29,7 +29,7 @@ public class ProductSpecification {
         if (brandIds == null || brandIds.isEmpty()) {
             return null;
         }
-        return (root, _, _) -> root.get("brand").get("id").in(brandIds);
+        return (root, queryObj, cb) -> root.get("brand").get("id").in(brandIds);
     }
 
     /**
@@ -39,7 +39,7 @@ public class ProductSpecification {
         if (categoryIds == null || categoryIds.isEmpty()) {
             return null;
         }
-        return (root, cq, _) -> {
+        return (root, cq, cb) -> {
             var categories = root.join("categories", JoinType.LEFT);
             if (cq != null) {
                 cq.distinct(true);
