@@ -110,12 +110,6 @@
                     <h4 th:text="${product.name}">Product Name</h4>
                     <div class="meta">
                         <span th:if="${product.brand != null}" th:text="'Brand: ' + ${product.brand.name}">Brand</span>
-                        <span th:if="${not #lists.isEmpty(product.categories)}">
-                            &nbsp;|&nbsp;Categories:
-                            <span th:each="cat, iterStat : ${product.categories}">
-                                <span th:text="${cat.name}">Cat</span><span th:unless="${iterStat.last}">, </span>
-                            </span>
-                        </span>
                     </div>
                 </div>
             </div>

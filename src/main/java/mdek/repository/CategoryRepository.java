@@ -12,17 +12,15 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query(value = """
-            SELECT c.id, c.name, COUNT(DISTINCT p.id) as cnt
-            FROM categories c
-            JOIN product_categories pc ON c.id = pc.category_id
-            JOIN products p ON p.id = pc.product_id
-            LEFT JOIN brands b ON b.id = p.brand_id
-            WHERE (:query IS NULL OR p.name ILIKE '%' || CAST(:query AS TEXT) || '%')
-              AND (:hasBrandFilter = false OR b.id IN (:brandIds))
-            GROUP BY c.id, c.name
-            ORDER BY cnt DESC
-            LIMIT 20
-            """, nativeQuery = true)
+    SELECT c.id, c.name, COUNT(*) as cnt
+    FROM categories c
+    JOIN product_categories pc ON pc.category_id = c.id
+    JOIN products p ON p.id = pc.product_id
+    WHERE (:query IS NULL OR p.name ILIKE '%' || CAST(:query AS TEXT) || '%')
+      AND (:hasBrandFilter = false OR p.brand_id IN (:brandIds))
+    GROUP BY c.id, c.name
+    ORDER BY cnt DESC
+    """, nativeQuery = true)
     List<Object[]> countProducts(
             @Param("query") String query,
             @Param("brandIds") List<Long> brandIds,
