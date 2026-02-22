@@ -26,4 +26,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             @Param("brandIds") List<Long> brandIds,
             @Param("hasBrandFilter") boolean hasBrandFilter
     );
+
+
+
 }
