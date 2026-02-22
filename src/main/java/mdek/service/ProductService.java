@@ -30,7 +30,6 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public SearchResult search(String query, List<Long> brandIds, List<Long> categoryIds, int page) {
-        // Нормализация
         String q = normalize(query);
         List<Long> brands = normalizeList(brandIds);
         List<Long> categories = normalizeList(categoryIds);
@@ -38,16 +37,13 @@ public class ProductService {
         boolean hasBrandFilter = brands != null;
         boolean hasCategoryFilter = categories != null;
 
-        // Для нативных запросов нужен непустой список
         List<Long> brandsForQuery = hasBrandFilter ? brands : List.of(-1L);
         List<Long> categoriesForQuery = hasCategoryFilter ? categories : List.of(-1L);
 
-        // Поиск продуктов через Specification (чистый Criteria API)
         var spec = ProductSpecification.withFilters(q, brands, categories);
         var pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("id"));
         Page<Product> products = productRepository.findAll(spec, pageable);
 
-        // Фасеты (топ-20 по количеству продуктов)
         List<FacetCount> brandFacets = toBrandFacets(
                 brandRepository.countProducts(q, categoriesForQuery, hasCategoryFilter));
 

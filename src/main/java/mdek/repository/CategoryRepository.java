@@ -11,9 +11,6 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    /**
-     * Подсчёт продуктов по категориям с учётом фильтров
-     */
     @Query(value = """
             SELECT c.id, c.name, COUNT(DISTINCT p.id) as cnt
             FROM categories c

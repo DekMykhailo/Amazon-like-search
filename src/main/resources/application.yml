@@ -1,5 +1,11 @@
 spring:
   datasource:
+    hikari:
+      maximum-pool-size: 1
+      minimum-idle: 0
+      idle-timeout: 10000
+      max-lifetime: 300000
+      connection-timeout: 30000
     url: jdbc:postgresql://aws-1-eu-west-2.pooler.supabase.com:5432/postgres
     username: postgres.skfeawzbnmwlykbkzoyj
     password: b9ehQNYqz25jYpRs
@@ -18,4 +24,5 @@ spring:
     cache: false
 
 server:
-  port: 8090
+  port: 8080
+

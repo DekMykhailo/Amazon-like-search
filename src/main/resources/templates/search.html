@@ -46,7 +46,6 @@
     <form id="searchForm" method="get" action="/">
         <input type="text" name="q" th:value="${query}" placeholder="Search products..." />
         <button type="submit">Search</button>
-        <!-- Скрытые поля для выбранных фильтров -->
         <span th:each="b : ${selectedBrands}">
             <input type="hidden" name="brands" th:value="${b}" />
         </span>
@@ -57,12 +56,10 @@
 </div>
 
 <div class="container">
-    <!-- Sidebar: Facets -->
     <div class="sidebar">
         <form id="facetForm" method="get" action="/">
             <input type="hidden" name="q" th:value="${query}" />
 
-            <!-- Brand Facet -->
             <div class="facet-group">
                 <h3>Brand</h3>
                 <div th:each="facet : ${brandFacets}">
@@ -77,7 +74,6 @@
                 <div th:if="${#lists.isEmpty(brandFacets)}" style="color: #999; font-size: 0.85rem;">No brands found</div>
             </div>
 
-            <!-- Category Facet -->
             <div class="facet-group">
                 <h3>Category</h3>
                 <div th:each="facet : ${categoryFacets}">
@@ -86,7 +82,6 @@
                                th:checked="${#lists.contains(selectedCategories, facet.id)}"
                                onchange="document.getElementById('facetForm').submit()" />
                         <span th:text="${facet.name}">Category Name</span>
-                        <span class="count" th:text="'(' + ${facet.count} + ')'"> (10)</span>
                     </label>
                 </div>
                 <div th:if="${#lists.isEmpty(categoryFacets)}" style="color: #999; font-size: 0.85rem;">No categories found</div>
@@ -94,7 +89,6 @@
         </form>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
         <div class="results-info">
             <span th:text="'Showing ' + ${products.numberOfElements} + ' of ' + ${products.totalElements} + ' products'">Showing results</span>
@@ -130,7 +124,6 @@
             </div>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination" th:if="${products.totalPages > 1}">
             <a th:if="${currentPage > 0}"
                th:href="@{/(q=${query}, page=${currentPage - 1}, brands=${selectedBrands}, categories=${selectedCategories})}">

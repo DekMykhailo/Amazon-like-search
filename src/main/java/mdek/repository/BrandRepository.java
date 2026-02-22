@@ -11,9 +11,6 @@ import java.util.List;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {
 
-    /**
-     * Подсчёт продуктов по брендам с учётом фильтров
-     */
     @Query(value = """
             SELECT b.id, b.name, COUNT(DISTINCT p.id) as cnt
             FROM brands b
