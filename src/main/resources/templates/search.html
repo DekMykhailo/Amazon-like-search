@@ -110,7 +110,9 @@
                 <div class="product-info">
                     <h4 th:text="${product.name}">Product Name</h4>
                     <div class="meta">
-                        <span th:if="${product.brand != null}" th:text="'Brand: ' + ${product.brand.name}">Brand</span>
+    <span th:text="'Brand: ' + (${product.brand != null} ? ${product.brand.name} : 'Unbranded')">
+        Brand: Unbranded
+    </span>
                     </div>
                 </div>
             </div>
