@@ -1,7 +1,4 @@
 # Engineering Notes
-
-Project: Faceted product search (text search + brand/category facets). This document briefly explains the main engineering decisions made for the take‑home assignment.
-
 Key tradeoffs
 - Simplicity & delivery speed over full-text search accuracy: used PostgreSQL ILIKE for partial matches (simple, works on small datasets) instead of introducing Elastic/Algolia. This keeps the stack small and deployable to a free Supabase Postgres instance, but is less performant for large datasets and less relevant than an inverted-index search.
 - Server-side rendering and Spring Boot (Java) vs single-page app: chose Spring Boot + Thymeleaf to provide a single deployable artifact and SEO-friendly pages. This reduces frontend complexity and dependency surface, but results in less interactive UX than a React client and slightly slower perceived UI updates.
